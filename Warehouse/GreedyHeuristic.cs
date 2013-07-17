@@ -12,13 +12,10 @@ namespace Warehouse
 
             var sortedWarehouses = data.Warehouses.OrderBy(wh => wh.S).ToArray();
 
-            var l = 1;
-            var r = n;
-            var solution = new WarehouseSolution { Cost = 1e30 };
-            while (true)
+            var solution = new WarehouseSolution { Cost = 1e30, Solution = new int[m]};
+            var solutionFound = false;
+            for (int mid = 1; mid <= n; mid++)
             {
-                var mid = (l + r) / 2;
-
                 var links = new List<Link>(mid * m);
                 for (int i = 0; i < mid; i++)
                 {
@@ -64,20 +61,12 @@ namespace Warehouse
 
                 if (isFeasible)
                 {
+                    solutionFound = true;
                     if (cost < solution.Cost)
                     {
                         solution.Cost = cost;
                         solution.Solution = ans;
                     }
-                    r = mid;
-                    if (l >= r)
-                    {
-                        break;
-                    }
-                }
-                else
-                {
-                    l = mid + 1;
                 }
             }
 
