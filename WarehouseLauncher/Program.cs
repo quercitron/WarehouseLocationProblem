@@ -8,11 +8,11 @@ namespace WarehouseLauncher
 {
     public class Program
     {
-        public static void Main()
+        public static void Main(string[] args)
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
-            var path = "wl_100_10";
+            var path = args[0];
 
             var data = WarehouseInputFactory.Create(path);
 
@@ -20,9 +20,8 @@ namespace WarehouseLauncher
 
             var result = solver.Solve(data);
 
-            Console.WriteLine(result.Cost);
+            Console.WriteLine("{0} 0", result.Cost);
             Console.WriteLine(string.Join(" ", result.Solution));
-            Console.ReadLine();
         }
     }
 }

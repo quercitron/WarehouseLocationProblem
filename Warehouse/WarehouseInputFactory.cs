@@ -18,7 +18,7 @@ namespace Warehouse
                     line = reader.ReadLine().Split();
                     data.Warehouses[i].Id = i;
                     data.Warehouses[i].Cap = int.Parse(line[0]);
-                    data.Warehouses[i].S = double.Parse(line[0]);
+                    data.Warehouses[i].S = double.Parse(line[1]);
                 }
                 data.T = new double[data.M,data.N];
                 data.Consumers = new Consumer[data.M];
