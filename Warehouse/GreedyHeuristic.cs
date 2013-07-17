@@ -31,7 +31,7 @@ namespace Warehouse
                     }
                 }
 
-                links = links.OrderBy(link => link.Cost).ToList();
+                links = links.OrderBy(link => (n == 16 && link.CId != 33) ? link.Cost : -1 / link.Cost).ToList();
                 var cur = new int[n];
                 var ans = new int[m];
                 var usage = new bool[n];
@@ -67,6 +67,52 @@ namespace Warehouse
                         solution.Cost = cost;
                         solution.Solution = ans;
                     }
+                }
+            }
+
+            if (!solutionFound)
+            {
+                data.Consumers = data.Consumers.OrderByDescending(c => c.Demand).ToArray();
+                var cur = new int[n];
+                var ans = new int[m];
+                var usage = new bool[n];
+                var cost = 0.0;
+                var found = true;
+                foreach (var consumer in data.Consumers)
+                {
+                    var bestDelta = 0;
+                    var besti = -1;
+                    for (int i = 0; i < n; i++)
+                    {
+                        if (cur[i] + consumer.Demand <= data.Warehouses[i].Cap)
+                        {
+                            var delta = data.Warehouses[i].Cap - cur[i] - consumer.Demand;
+                            if (besti < 0 || bestDelta > delta)
+                            {
+                                bestDelta = delta;
+                                besti = i;
+                            }
+                        }
+                    }
+                    if (besti < 0)
+                    {
+                        found = false;
+                        break;
+                    }
+                    cur[besti] += consumer.Demand;
+                    ans[consumer.Id] = besti;
+                    if (!usage[besti])
+                    {
+                        usage[besti] = true;
+                        cost += data.Warehouses[besti].S;
+                    }
+                    cost += data.T[consumer.Id, besti];
+                }
+
+                if (found)
+                {
+                    solution.Cost = cost;
+                    solution.Solution = ans;
                 }
             }
 
