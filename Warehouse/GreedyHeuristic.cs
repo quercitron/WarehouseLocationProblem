@@ -12,7 +12,7 @@ namespace Warehouse
 
             var sortedWarehouses = data.Warehouses.OrderBy(wh => wh.S).ToArray();
 
-            var solution = new WarehouseSolution { Cost = 1e30, Solution = new int[m]};
+            var solution = new WarehouseSolution {Cost = 1e30, Solution = new int[m], SolutionFound = false};
             var solutionFound = false;
             for (int mid = 1; mid <= n; mid++)
             {
@@ -66,6 +66,7 @@ namespace Warehouse
                     {
                         solution.Cost = cost;
                         solution.Solution = ans;
+                        solution.SolutionFound = true;
                     }
                 }
             }
