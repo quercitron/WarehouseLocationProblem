@@ -41,10 +41,17 @@
   <ItemGroup>
     <Compile Include="GreedyHeuristic.cs" />
     <Compile Include="IWarehouseSolver.cs" />
+    <Compile Include="MIPSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WarehouseInputData.cs" />
     <Compile Include="WarehouseInputFactory.cs" />
     <Compile Include="WarehouseSolution.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\SimplexMethod\SimplexMethod\SimplexMethod.csproj">
+      <Project>{0263bf3b-6bcc-4510-a976-f6abe0403242}</Project>
+      <Name>SimplexMethod</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

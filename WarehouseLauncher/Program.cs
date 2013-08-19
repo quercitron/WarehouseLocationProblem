@@ -16,7 +16,7 @@ namespace WarehouseLauncher
 
             var data = WarehouseInputFactory.Create(path);
 
-            var solver = new GreedyHeuristic();
+            var solver = new MipSolver();
 
             var result = solver.Solve(data);
 
